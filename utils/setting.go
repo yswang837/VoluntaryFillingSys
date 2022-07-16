@@ -20,6 +20,8 @@ var (
 	StartTime  string
 	MachinedId string
 
+	EmailFrom string
+
 	AccessKey   string
 	SecretKey   string
 	Bucket      string
@@ -34,6 +36,7 @@ func init() {
 	LoadServer(f)
 	LoadData(f)
 	LoadSnowFlake(f)
+	LoadEmail(f)
 	LoadQiNiu(f)
 }
 func LoadServer(f *ini.File) {
@@ -54,6 +57,10 @@ func LoadData(f *ini.File) {
 func LoadSnowFlake(f *ini.File) {
 	StartTime = f.Section("snowflake").Key("StartTime").MustString("2022-07-16")
 	MachinedId = f.Section("snowflake").Key("MachinedId").MustString("1")
+}
+
+func LoadEmail(f *ini.File) {
+	EmailFrom = f.Section("email").Key("EmailFrom").MustString("中国高考志愿填报网 <1714113169@qq.com>")
 }
 
 func LoadQiNiu(f *ini.File) {

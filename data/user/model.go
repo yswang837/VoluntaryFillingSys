@@ -15,9 +15,9 @@ type User struct {
 	Sex        int       `gorm:"type int" json:"sex"`                       // 1男,2女,3不详
 	CreateTime time.Time `gorm:"type datetime;not null" json:"create_time"` // 创建时间
 	UpdateTime time.Time `gorm:"type datetime;not null" json:"update_time"` // 更新时间
-	DeleteTime time.Time `gorm:"type datetime;not null" json:"delete_time"` // 删除时间
+	DeleteTime time.Time `gorm:"type datetime" json:"delete_time"`          // 删除时间 软删除
 
-	UserName string `gorm:"type:varchar(20);not null;" json:"username" validate:"required,min=4,max=12" label:"用户名"`
+	//UserName string `gorm:"type:varchar(20);not null;" json:"username" validate:"required,min=4,max=12" label:"用户名"`
 	//Password string `gorm:"type:varchar(20);not null;" json:"password" validate:"required,min=6,max=20" label:"密码"`
 	//Role int `gorm:"type:int;DEFAULT:2" json:"role" validate:"required,gte=2" label:"角色码"`
 }
