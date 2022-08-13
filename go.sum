@@ -14,6 +14,8 @@ github.com/stretchr/testify v1.8.0 h1:pSgiaMZlXftHpm5L7V1+rVB+AZJydKsMxsQBIJw4PK
 github.com/stretchr/testify v1.8.0/go.mod h1:yNjHg4UonilssWZ8iaSj1OCr/vHnekPRkoO+kdMU+MU=
 github.com/yswang837/email v0.0.1 h1:jAy34QnM5jjIEo9orP8A+wJq6OCGMKoZ6DGg7SLjz94=
 github.com/yswang837/email v0.0.1/go.mod h1:1Z1YJXDucdfEEiQGIHtMawoU0Rv9TwTKkHT6qMDZda8=
+github.com/yswang837/snowflake v0.0.1 h1:JoY/rR7+4p+GpnZwQ5FP1mI8JGFTizLoNrqNnnT38jc=
+github.com/yswang837/snowflake v0.0.1/go.mod h1:46u6kocjWtpser7Dj61m36LAOTh4A8nv5BD+brIKOzI=
 gopkg.in/check.v1 v0.0.0-20161208181325-20d25e280405/go.mod h1:Co6ibVJAznAaIkqp8huTwlJQCZ016jof/cbN4VW5Yz0=
 gopkg.in/ini.v1 v1.67.0 h1:Dgnx+6+nfE+IfzjUEISNeydPJh9AXNNsWbGP9KzCsOA=
 gopkg.in/ini.v1 v1.67.0/go.mod h1:pNLf8WUiyNEtQjuu5G5vTm06TEv9tsIgeAvK8hOrP4k=
