@@ -12,7 +12,7 @@ func main() {
 		return
 	}
 	fmt.Println(snowflake.GenID("AAB"))
-	code, err := email.SendEmail("1714113169@qq.com")
+	code, err := email.SendEmail("850692428@qq.com")
 	if err != nil {
 		panic(err)
 	}
