@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"github.com/VoluntaryFillingSys/entity/user"
 
-	//"github.com/go-sql-driver/mysql"
+	//"github.com/go-sql-driver/mysql_pool"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"log"
@@ -27,7 +27,7 @@ func init() {
 	dsn := "root:root@tcp(127.0.0.1:3306)/test?charset=utf8mb4&parseTime=True&loc=Local"
 	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 	if err != nil {
-		log.Fatal("fail to init mysql db, err: ", err)
+		log.Fatal("fail to init mysql_pool db, err: ", err)
 	}
 	MyDao = &Dao{Db: db}
 	db.AutoMigrate(&user.User{})

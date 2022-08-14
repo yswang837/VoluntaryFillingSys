@@ -46,7 +46,7 @@ func LoadServer(f *ini.File) {
 }
 
 func LoadData(f *ini.File) {
-	Db = f.Section("database").Key("Db").MustString("mysql")
+	Db = f.Section("database").Key("Db").MustString("mysql_pool")
 	DbHost = f.Section("database").Key("DbHost").MustString(":localhost")
 	DbPort = f.Section("database").Key("DbPort").MustString("10000")
 	DbName = f.Section("database").Key("DbName").MustString(":gopher")
