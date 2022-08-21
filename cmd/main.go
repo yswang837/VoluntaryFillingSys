@@ -1,11 +1,11 @@
 package main
 
 import (
-	routes "github.com/VoluntaryFillingSys/router"
-	"github.com/VoluntaryFillingSys/utils"
+	"github.com/VoluntaryFillingSys/router"
 )
 
 func main() {
+	routes.StartGinService()
 	//if err := snowflake.Init(utils.StartTime, utils.MachinedId); err != nil {
 	//	return
 	//}
@@ -15,7 +15,4 @@ func main() {
 	//	panic(err)
 	//}
 	//fmt.Println("code", code)
-	r := routes.InitRouter()
-	panic(r.Run(utils.HttpPort))
-
 }

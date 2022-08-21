@@ -8,8 +8,9 @@ type ClientMysql struct {
 	Client *mysql.Client
 }
 
-func (c *ClientMysql) NewMysqlClient() (*ClientMysql, error) {
+func NewMysqlClient() (*ClientMysql, error) {
 	var err error
+	c := &ClientMysql{}
 	c.Client, err = mysql.NewClient()
 	if err != nil {
 		return nil, err
