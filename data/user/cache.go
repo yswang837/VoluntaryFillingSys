@@ -4,12 +4,12 @@ import (
 	"github.com/yswang837/redis"
 )
 
-type Client struct {
+type ClientRedis struct {
 	client *redis.Client
 }
 
-func NewClient() (*Client, error) {
-	c := &Client{}
+func NewRedisClient() (*ClientRedis, error) {
+	c := &ClientRedis{}
 	var err error
 	//conf, err := config.NewConfigByFileName("redis")
 	//if err != nil {
@@ -20,10 +20,10 @@ func NewClient() (*Client, error) {
 	if err != nil {
 		return nil, err
 	}
-	return &Client{client: c.client}, nil
+	return &ClientRedis{client: c.client}, nil
 }
 
-func (c *Client) SetTTL(uid string, val string, ttl string) bool {
+func (c *ClientRedis) SetTTL(uid string, val string, ttl string) bool {
 	_, err := c.client.EXPIRE(uid, val, ttl)
 	if err != nil {
 		return false
