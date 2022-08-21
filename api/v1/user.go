@@ -1,5 +1,16 @@
 package v1
 
+import (
+	"github.com/gin-gonic/gin"
+	"net/http"
+)
+
+func Pong(c *gin.Context) {
+	c.JSON(http.StatusOK, gin.H{
+		"mes": "pong",
+	})
+}
+
 //import (
 //	dao "github.com/VoluntaryFillingSys/dao/user"
 //	"github.com/gin-gonic/gin"

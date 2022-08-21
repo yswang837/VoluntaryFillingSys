@@ -1,7 +1,7 @@
 package routes
 
 import (
-	v1 "github.com/VoluntaryFillingSys/api/v1"
+	"github.com/VoluntaryFillingSys/test"
 	"github.com/gin-gonic/gin"
 )
 
@@ -36,7 +36,8 @@ func InitRouter() *gin.Engine {
 	//router.GET("article/list/:id", v1.GetCateArt)
 	//router.GET("article/info/:id", v1.GetArtInfo)
 	//router.POST("login", v1.Login)
-	router.POST("user/add", v1.AddUser)
+	//router.POST("user/add", v1.AddUser)
+	router.GET("ping", test.Pong)
 	return r
 
 }
