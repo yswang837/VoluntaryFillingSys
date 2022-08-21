@@ -7,7 +7,7 @@ import (
 )
 
 func TestClient_SetTTL(t *testing.T) {
-	c, err := NewClient()
+	c, err := NewRedisClient()
 	assert.Equal(t, nil, err)
 	b := c.SetTTL("AA0111111", "aaa", "10")
 	fmt.Println("result...", b)
