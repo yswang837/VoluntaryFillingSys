@@ -18,7 +18,23 @@ func (c *ClientMysql) NewMysqlClient() (*ClientMysql, error) {
 }
 
 // todo mysql的基本操作
-func (c *ClientMysql) AddUser(user *User) {
+func (c *ClientMysql) Add(user *User) {
 
 	c.Client.Db.Create(user)
+}
+
+func (c *ClientMysql) Delete(uid string) {
+	c.Client.Db.Delete(&User{}, "uid = ?", uid)
+}
+
+func (c *ClientMysql) Update() {
+
+}
+
+func (c *ClientMysql) GetUser() {
+
+}
+
+func (c *ClientMysql) GetUsers() {
+
 }
