@@ -2,10 +2,9 @@ package test
 
 import (
 	"fmt"
-	"testing"
 	"github.com/yswang837/snowflake"
+	"testing"
 )
-
 
 func TestSnowFlake(t *testing.T) {
 	startTime := "2022-08-12"
