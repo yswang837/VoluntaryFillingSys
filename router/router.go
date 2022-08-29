@@ -48,5 +48,7 @@ func InitRouter() *gin.Engine {
 
 func StartGinService() {
 	r := InitRouter()
-	r.Run(utils.HttpPort)
+	if err := r.Run(utils.HttpPort); err != nil {
+		panic(err)
+	}
 }
