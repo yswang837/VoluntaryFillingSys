@@ -1,6 +1,8 @@
 package user
 
 import (
+	"fmt"
+	"github.com/jinzhu/gorm"
 	"github.com/yswang837/mysql"
 )
 
@@ -16,6 +18,20 @@ func NewMysqlClient() (*ClientMysql, error) {
 		return nil, err
 	}
 	return &ClientMysql{Client: c.Client}, nil
+}
+
+func (c *ClientMysql) master(uid string) *gorm.DB {
+	return c.Client.Db.Model(&User{}).Scopes(selectTable(uid))
+}
+
+func (c *ClientMysql) slave(uid string) *gorm.DB {
+	return c.Client.Db.Model(&User{}).Scopes(selectTable(uid))
+}
+
+func selectTable(uid string) func(tx *gorm.DB) *gorm.DB {
+	return func(tx *gorm.DB) *gorm.DB {
+		return tx.Table(fmt.Sprintf("user_%d", crc([]byte(uid))%2))
+	}
 }
 
 // todo mysql的基本操作
