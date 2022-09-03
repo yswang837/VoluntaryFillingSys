@@ -1,14 +1,17 @@
 package routes
 
 import (
+	"github.com/VoluntaryFillingSys/service/user"
 	"github.com/VoluntaryFillingSys/test"
 	"github.com/VoluntaryFillingSys/utils"
 	"github.com/gin-gonic/gin"
 )
 
-//type Router struct {
-//
-//}
+var DefaultRouter Router
+
+type Router struct {
+	userConsumer *user.Consumer
+}
 
 func InitRouter() *gin.Engine {
 	r := gin.Default()
@@ -41,7 +44,7 @@ func InitRouter() *gin.Engine {
 	//router.GET("article/list/:id", v1.GetCateArt)
 	//router.GET("article/info/:id", v1.GetArtInfo)
 	//router.POST("login", v1.Login)
-	//router.POST("user/add",)
+	//router.POST("user/add", DefaultRouter.userConsumer.AddUser)
 	router.GET("ping", test.Pong)
 	return r
 }
@@ -51,4 +54,8 @@ func StartGinService() {
 	if err := r.Run(utils.HttpPort); err != nil {
 		panic(err)
 	}
+}
+
+func init() {
+	DefaultRouter.userConsumer = user.NewConsumer()
 }
