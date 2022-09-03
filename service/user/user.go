@@ -1,6 +1,7 @@
 package user
 
 import (
+	"fmt"
 	"github.com/VoluntaryFillingSys/data/user"
 	"github.com/gin-gonic/gin"
 )
@@ -10,8 +11,8 @@ type Consumer struct {
 	userMysql *user.ClientMysql
 }
 
-func NewConsumer() (*Consumer, error) {
-	return &Consumer{}, nil
+func NewConsumer() *Consumer {
+	return &Consumer{}
 }
 
 func (c *Consumer) Init() error {
@@ -26,6 +27,7 @@ func (c *Consumer) Init() error {
 }
 
 func (c *Consumer) AddUser(ctx *gin.Context) {
+	fmt.Println("Add......")
 	var u user.User
 	_ = ctx.ShouldBindJSON(&u)
 }

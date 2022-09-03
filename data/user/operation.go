@@ -6,6 +6,10 @@ import (
 	"github.com/yswang837/mysql"
 )
 
+var (
+	DefaultClient = &ClientMysql{}
+)
+
 type ClientMysql struct {
 	Client *mysql.Client
 }
@@ -13,7 +17,7 @@ type ClientMysql struct {
 func NewMysqlClient() (*ClientMysql, error) {
 	var err error
 	c := &ClientMysql{}
-	c.Client, err = mysql.NewClient()
+	c.Client, err = mysql.NewClient("user")
 	if err != nil {
 		return nil, err
 	}
@@ -21,11 +25,11 @@ func NewMysqlClient() (*ClientMysql, error) {
 }
 
 func (c *ClientMysql) master(uid string) *gorm.DB {
-	return c.Client.Db.Model(&User{}).Scopes(selectTable(uid))
+	return c.Client.Master().Model(&User{}).Scopes(selectTable(uid))
 }
 
 func (c *ClientMysql) slave(uid string) *gorm.DB {
-	return c.Client.Db.Model(&User{}).Scopes(selectTable(uid))
+	return c.Client.Slave().Model(&User{}).Scopes(selectTable(uid))
 }
 
 func selectTable(uid string) func(tx *gorm.DB) *gorm.DB {
@@ -36,12 +40,11 @@ func selectTable(uid string) func(tx *gorm.DB) *gorm.DB {
 
 // todo mysql的基本操作
 func (c *ClientMysql) Add(user *User) {
-
-	c.Client.Db.Create(user)
+	c.master("aaaaa").Create(user)
 }
 
 func (c *ClientMysql) Delete(uid string) {
-	c.Client.Db.Delete(&User{}, "uid = ?", uid)
+	c.master("aaa").Delete(&User{}, "uid = ?", uid)
 }
 
 func (c *ClientMysql) Update() {
@@ -54,4 +57,8 @@ func (c *ClientMysql) GetUser() {
 
 func (c *ClientMysql) GetUsers() {
 
+}
+
+func init() {
+	DefaultClient, _ = NewMysqlClient()
 }
