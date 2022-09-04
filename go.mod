@@ -22,4 +22,3 @@ require (
 )
 
 replace github.com/yswang837/mysql => /Users/wys/Project/mysql
-
