@@ -1,7 +1,6 @@
 package user
 
 import (
-	"fmt"
 	"github.com/VoluntaryFillingSys/data/user"
 	"github.com/gin-gonic/gin"
 )
@@ -27,7 +26,7 @@ func (c *Consumer) Init() error {
 }
 
 func (c *Consumer) AddUser(ctx *gin.Context) {
-	fmt.Println("Add......")
 	var u user.User
 	_ = ctx.ShouldBindJSON(&u)
+	user.DefaultClient.Add(&u)
 }
