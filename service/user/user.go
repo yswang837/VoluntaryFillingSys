@@ -35,7 +35,7 @@ func (c *Consumer) AddUser(ctx *gin.Context) {
 	var u user.User
 	_ = ctx.ShouldBindJSON(&u)
 	u.Uid = snowflake.GenID(utils.PrefixUser)
-	if c.CheckEmailExist(u.Uid, u.Email) {
+	if c.CheckEmailExist(u.Email) {
 		ctx.JSON(http.StatusOK, gin.H{
 			"code": utils.ErrorEmailUsed,
 			"msg":  "邮箱已注册",
@@ -56,6 +56,6 @@ func (c *Consumer) AddUser(ctx *gin.Context) {
 	return
 }
 
-func (c *Consumer) CheckEmailExist(uid, email string) bool {
-	return c.userMysql.CheckEmailExist(uid, email)
+func (c *Consumer) CheckEmailExist(email string) bool {
+	return c.userMysql.CheckEmailExist(email)
 }

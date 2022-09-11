@@ -8,7 +8,11 @@ const (
 	MysqlErr   = 7788
 
 	// 10000 用户模块常量
-	PrefixUser            = "AA"
+	PrefixUser     = "AA"
+	TableNumOfUser = 2
+	UidOfUser0     = "AA20753477374316544"
+	UidOfUser1     = "AA20753699928281088"
+
 	ErrorEmailUsed        = 10001
 	ErrorPassword         = 10002
 	ErrorVerificationCode = 10003

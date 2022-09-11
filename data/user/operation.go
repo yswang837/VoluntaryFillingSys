@@ -2,6 +2,7 @@ package user
 
 import (
 	"fmt"
+	"github.com/VoluntaryFillingSys/utils"
 	"github.com/jinzhu/gorm"
 	"github.com/yswang837/mysql"
 	"time"
@@ -22,22 +23,22 @@ func NewMysqlClient() (*ClientMysql, error) {
 }
 
 func (c *ClientMysql) master(uid string) *gorm.DB {
-	return c.Client.Master().Model(&User{}).Scopes(selectTable(uid))
+	return c.Client.Master().Model(&User{}).Scopes(shardTable(uid))
 }
 
 func (c *ClientMysql) slave(uid string) *gorm.DB {
-	return c.Client.Slave().Model(&User{}).Scopes(selectTable(uid))
+	return c.Client.Slave().Model(&User{}).Scopes(shardTable(uid))
 }
 
-func whereEmail(uid string) func(tx *gorm.DB) *gorm.DB {
+func whereEmail(email string) func(tx *gorm.DB) *gorm.DB {
 	return func(tx *gorm.DB) *gorm.DB {
-		return tx.Where("email = ?", uid)
+		return tx.Where("email = ?", email)
 	}
 }
 
-func selectTable(uid string) func(tx *gorm.DB) *gorm.DB {
+func shardTable(uid string) func(tx *gorm.DB) *gorm.DB {
 	return func(tx *gorm.DB) *gorm.DB {
-		return tx.Table(fmt.Sprintf("user_%d", crc([]byte(uid))%2))
+		return tx.Table(fmt.Sprintf("user_%d", crc([]byte(uid))%utils.TableNumOfUser))
 	}
 }
 
@@ -61,11 +62,15 @@ func (c *ClientMysql) Update() {
 
 }
 
-func (c *ClientMysql) CheckEmailExist(uid, email string) bool {
-	u := User{}
-	c.slave(uid).Scopes(whereEmail(email)).First(&u)
-	if u.Email != "" {
-		return true
+func (c *ClientMysql) CheckEmailExist(email string) bool {
+	u := &User{}
+	uids := []string{utils.UidOfUser0, utils.UidOfUser1}
+	for _, uid := range uids {
+		if err := c.slave(uid).Scopes(whereEmail(email)).First(u).Error; err != nil {
+		}
+		if u.Email != "" {
+			return true
+		}
 	}
 	return false
 
