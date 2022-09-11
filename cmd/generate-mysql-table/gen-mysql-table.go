@@ -1,9 +1,10 @@
-package user
+package main
 
 import (
-	"fmt"
+	"github.com/spf13/cobra"
+	"github.com/yswang837/mysql"
 	"gorm.io/gorm"
-	"hash/crc32"
+	"os"
 	"time"
 )
 
@@ -27,10 +28,39 @@ type User struct {
 	CustomTableName string         `gorm:"-"`
 }
 
-func crc(b []byte) uint32 {
-	return crc32.ChecksumIEEE(b)
+func NewUser(tableName string) *User {
+	return &User{CustomTableName: tableName}
 }
 
 func (u *User) TableName() string {
-	return fmt.Sprintf("user_%d", crc([]byte(u.Uid))%2)
+	return u.CustomTableName
+}
+
+// genMysqlTableCmd represents the genMysqlTable command
+var genMysqlTableCmd = &cobra.Command{
+	Use: "gen-mysql-table",
+	Run: func(cmd *cobra.Command, args []string) {
+		c, err := mysql.NewClient("user")
+		if err != nil {
+			return
+		}
+		c.Master().AutoMigrate(NewUser("user_1"), NewUser("user_2"))
+		c.Slave().AutoMigrate(NewUser("user_1"), NewUser("user_2"))
+	},
+}
+
+var rootCmd = &cobra.Command{
+	Use:   "main",
+	Short: "一个短的帮助信息",
+	Long:  `一个长的帮助信息`,
+}
+
+func init() {
+	rootCmd.AddCommand(genMysqlTableCmd)
+}
+
+func main() {
+	if err := rootCmd.Execute(); err != nil {
+		os.Exit(1)
+	}
 }
