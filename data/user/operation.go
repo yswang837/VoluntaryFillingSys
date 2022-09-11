@@ -67,6 +67,7 @@ func (c *ClientMysql) CheckEmailExist(email string) bool {
 	uids := []string{utils.UidOfUser0, utils.UidOfUser1}
 	for _, uid := range uids {
 		if err := c.slave(uid).Scopes(whereEmail(email)).First(u).Error; err != nil {
+			return false
 		}
 		if u.Email != "" {
 			return true
