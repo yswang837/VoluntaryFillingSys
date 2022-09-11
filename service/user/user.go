@@ -2,6 +2,7 @@ package user
 
 import (
 	"github.com/VoluntaryFillingSys/data/user"
+	"github.com/VoluntaryFillingSys/utils"
 	"github.com/gin-gonic/gin"
 	"github.com/yswang837/snowflake"
 	"net/http"
@@ -18,6 +19,9 @@ func NewConsumer() *Consumer {
 
 func (c *Consumer) Init() error {
 	var err error
+	if err = snowflake.Init(utils.StartTime, utils.MachinedId); err != nil {
+		return err
+	}
 	if c.userMysql, err = user.NewMysqlClient(); err != nil {
 		return err
 	}
@@ -30,15 +34,15 @@ func (c *Consumer) Init() error {
 func (c *Consumer) AddUser(ctx *gin.Context) {
 	var u user.User
 	_ = ctx.ShouldBindJSON(&u)
-	u.Uid = snowflake.GenID("AA")
+	u.Uid = snowflake.GenID(utils.PrefixUser)
 	if err := c.userMysql.Add(&u); err != nil {
 		ctx.JSON(http.StatusOK, gin.H{
-			"code": "10001",
+			"code": utils.MysqlErr,
 			"msg":  err,
 		})
 	}
 	ctx.JSON(http.StatusOK, gin.H{
-		"code": "10000",
-		"msg":  "success",
+		"code": utils.Success,
+		"msg":  "用户注册成功",
 	})
 }
