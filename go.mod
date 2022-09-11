@@ -11,6 +11,7 @@ require (
 	github.com/jinzhu/now v1.1.5 // indirect
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
 	github.com/pelletier/go-toml/v2 v2.0.2 // indirect
+	github.com/spf13/cobra v1.5.0 // indirect
 	github.com/yswang837/mysql v0.0.1
 	github.com/yswang837/redis v0.0.0-20220821100845-f9f27e750969
 	golang.org/x/crypto v0.0.0-20220722155217-630584e8d5aa // indirect
@@ -21,4 +22,4 @@ require (
 	gorm.io/gorm v1.23.8
 )
 
-replace github.com/yswang837/mysql => /Users/wys/Project/mysql
+//replace github.com/yswang837/mysql => /Users/wys/Project/mysql
