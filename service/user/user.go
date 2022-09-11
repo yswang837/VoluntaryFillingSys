@@ -42,6 +42,7 @@ func (c *Consumer) AddUser(ctx *gin.Context) {
 		})
 		return
 	}
+	u.Password = utils.ScryptPw(u.Password)
 	if err := c.userMysql.Add(&u); err != nil {
 		ctx.JSON(http.StatusOK, gin.H{
 			"code": utils.MysqlErr,
