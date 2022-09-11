@@ -29,8 +29,13 @@ func (c *ClientMysql) slave(uid string) *gorm.DB {
 	return c.Client.Slave().Model(&User{}).Scopes(selectTable(uid))
 }
 
+func whereEmail(uid string) func(tx *gorm.DB) *gorm.DB {
+	return func(tx *gorm.DB) *gorm.DB {
+		return tx.Where("email = ?", uid)
+	}
+}
+
 func selectTable(uid string) func(tx *gorm.DB) *gorm.DB {
-	fmt.Println("selectTable........", crc([]byte(uid))%2)
 	return func(tx *gorm.DB) *gorm.DB {
 		return tx.Table(fmt.Sprintf("user_%d", crc([]byte(uid))%2))
 	}
@@ -53,6 +58,16 @@ func (c *ClientMysql) Delete(uid string) {
 }
 
 func (c *ClientMysql) Update() {
+
+}
+
+func (c *ClientMysql) CheckEmailExist(uid, email string) bool {
+	u := User{}
+	c.slave(uid).Scopes(whereEmail(email)).First(&u)
+	if u.Email != "" {
+		return true
+	}
+	return false
 
 }
 
