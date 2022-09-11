@@ -8,7 +8,7 @@ import (
 )
 
 type User struct {
-	Uid             string         `gorm:"type:varchar(20);not null;" json:"uid"`            // 用户id，雪花算法生成的
+	Uid             string         `gorm:"type:varchar(50);not null;" json:"uid"`            // 用户id，雪花算法生成的
 	Email           string         `gorm:"type:varchar(64);not null;" json:"email"`          // 邮箱
 	Password        string         `gorm:"type:varchar(20);not null" json:"password"`        // 密码
 	Phone           string         `gorm:"type:varchar(11);" json:"phone"`                   // 电话号码

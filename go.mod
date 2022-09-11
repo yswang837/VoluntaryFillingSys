@@ -23,4 +23,4 @@ require (
 	gorm.io/gorm v1.23.8
 )
 
-//replace github.com/yswang837/mysql => /Users/wys/Project/mysql
+replace github.com/yswang837/mysql => /Users/wys/Project/mysql

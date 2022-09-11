@@ -7,7 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-var DefaultRouter Router
+var defaultRouter Router
 
 type Router struct {
 	userConsumer *user.Consumer
@@ -44,7 +44,7 @@ func InitRouter() *gin.Engine {
 	//router.GET("article/list/:id", v1.GetCateArt)
 	//router.GET("article/info/:id", v1.GetArtInfo)
 	//router.POST("login", v1.Login)
-	router.POST("user/add", DefaultRouter.userConsumer.AddUser)
+	router.POST("user/add", defaultRouter.userConsumer.AddUser)
 	router.GET("ping", test.Pong)
 	return r
 }
@@ -58,8 +58,8 @@ func StartGinService() error {
 }
 
 func init() {
-	DefaultRouter.userConsumer = user.NewConsumer()
-	if err := DefaultRouter.userConsumer.Init(); err != nil {
+	defaultRouter.userConsumer = user.NewConsumer()
+	if err := defaultRouter.userConsumer.Init(); err != nil {
 		return
 	}
 }
