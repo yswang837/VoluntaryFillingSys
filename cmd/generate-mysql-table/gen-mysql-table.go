@@ -44,8 +44,8 @@ var genMysqlTableCmd = &cobra.Command{
 		if err != nil {
 			return
 		}
-		c.Master().AutoMigrate(NewUser("user_1"), NewUser("user_2"))
-		c.Slave().AutoMigrate(NewUser("user_1"), NewUser("user_2"))
+		c.Master().AutoMigrate(NewUser("user_0"), NewUser("user_1"))
+		c.Slave().AutoMigrate(NewUser("user_0"), NewUser("user_1"))
 	},
 }
 
