@@ -49,13 +49,17 @@ func InitRouter() *gin.Engine {
 	return r
 }
 
-func StartGinService() {
+func StartGinService() error {
 	r := InitRouter()
 	if err := r.Run(utils.HttpPort); err != nil {
-		panic(err)
+		return err
 	}
+	return nil
 }
 
 func init() {
 	DefaultRouter.userConsumer = user.NewConsumer()
+	if err := DefaultRouter.userConsumer.Init(); err != nil {
+		return
+	}
 }
