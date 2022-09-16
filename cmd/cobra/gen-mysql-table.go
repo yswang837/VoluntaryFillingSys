@@ -4,7 +4,6 @@ import (
 	"github.com/spf13/cobra"
 	"github.com/yswang837/mysql"
 	"gorm.io/gorm"
-	"os"
 	"time"
 )
 
@@ -38,7 +37,8 @@ func (u *User) TableName() string {
 
 // genMysqlTableCmd represents the genMysqlTable command
 var genMysqlTableCmd = &cobra.Command{
-	Use: "gen-mysql-table",
+	Use:   "gen-mysql-table",
+	Short: "生成 mysql 表",
 	Run: func(cmd *cobra.Command, args []string) {
 		c, err := mysql.NewClient("user")
 		if err != nil {
@@ -47,20 +47,4 @@ var genMysqlTableCmd = &cobra.Command{
 		c.Master().AutoMigrate(NewUser("user_0"), NewUser("user_1"))
 		c.Slave().AutoMigrate(NewUser("user_0"), NewUser("user_1"))
 	},
-}
-
-var rootCmd = &cobra.Command{
-	Use:   "main",
-	Short: "一个短的帮助信息",
-	Long:  `一个长的帮助信息`,
-}
-
-func init() {
-	rootCmd.AddCommand(genMysqlTableCmd)
-}
-
-func main() {
-	if err := rootCmd.Execute(); err != nil {
-		os.Exit(1)
-	}
 }
