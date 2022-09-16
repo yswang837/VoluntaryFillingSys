@@ -44,7 +44,7 @@ func InitRouter() *gin.Engine {
 	//router.GET("article/list/:id", v1.GetCateArt)
 	//router.GET("article/info/:id", v1.GetArtInfo)
 	//router.POST("login", v1.Login)
-	router.POST("user/add", defaultRouter.userConsumer.AddUser)
+	router.POST("user/register", defaultRouter.userConsumer.AddUser)
 	router.GET("ping", test.Pong)
 	return r
 }
